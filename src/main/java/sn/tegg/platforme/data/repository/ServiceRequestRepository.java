@@ -11,7 +11,9 @@ public interface ServiceRequestRepository extends JpaRepository<ServiceRequest, 
 
     List<ServiceRequest> findByClientId(Long clientId);
 
-    List<ServiceRequest> findByArtisanId(Long artisanId);
-
     List<ServiceRequest> findByStatus(String status);
+
+    List<ServiceRequest> findByCategoryId(Long categoryId);
+
+    List<ServiceRequest> findByItemId(Long itemId);
 }
