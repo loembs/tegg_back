@@ -1,6 +1,5 @@
 package sn.tegg.platforme.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -26,11 +25,14 @@ import java.util.Arrays;
 @EnableMethodSecurity
 public class SecurityConfig {
 
-    @Autowired
-    private sn.tegg.platforme.security.UserDetailsServiceImpl userDetailsService;
+    private final sn.tegg.platforme.security.UserDetailsServiceImpl userDetailsService;
+    private final sn.tegg.platforme.security.JwtAuthenticationFilter jwtAuthenticationFilter;
 
-    @Autowired
-    private sn.tegg.platforme.security.JwtAuthenticationFilter jwtAuthenticationFilter;
+    public SecurityConfig(sn.tegg.platforme.security.UserDetailsServiceImpl userDetailsService,
+                          sn.tegg.platforme.security.JwtAuthenticationFilter jwtAuthenticationFilter) {
+        this.userDetailsService = userDetailsService;
+        this.jwtAuthenticationFilter = jwtAuthenticationFilter;
+    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {

@@ -13,13 +13,16 @@ import java.util.Date;
 @Component
 public class JwtUtils {
 
-    @Value("${jwt.secret}")
+    @Value("${jwt.secret:TeggSecretKeyForJWTTokenGeneration2024MustBeLongEnough}")
     private String jwtSecret;
 
-    @Value("${jwt.expiration-ms}")
+    @Value("${jwt.expiration-ms:86400000}")
     private int jwtExpirationMs;
 
     private SecretKey getSigningKey() {
+        if (jwtSecret == null || jwtSecret.isEmpty()) {
+            jwtSecret = "TeggSecretKeyForJWTTokenGeneration2024MustBeLongEnough";
+        }
         return Keys.hmacShaKeyFor(jwtSecret.getBytes());
     }
 
